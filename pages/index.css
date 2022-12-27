@@ -6,3 +6,15 @@
 
 /* FONTS */
 @import url(../vendor/fonts/fonts.css);
+
+/* PAGE */
+@import url(../blocks/page/page.css);
+
+/* HEADER */
+@import url(../blocks/header/header.css);
+
+/* CONTENT */
+@import url(../blocks/content/content.css);
+
+/* PROFILE */
+@import url(../blocks/profile/profile.css);
