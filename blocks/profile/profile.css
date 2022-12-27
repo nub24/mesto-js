@@ -7,6 +7,7 @@
 }
 .profile__content {
   display: flex;
+  align-items: center;
   gap: 30px;
 }
 
@@ -17,9 +18,10 @@
 }
 
 .profile__info {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: max-content;
+  grid-template-rows: max-content max-content;
+  row-gap: 16px;
 }
 
 .profile__title {
@@ -41,6 +43,7 @@
 }
 
 .profile__subtitle {
+  align-self: flex-start;
   margin: 0;
   color: #fff;
 }
