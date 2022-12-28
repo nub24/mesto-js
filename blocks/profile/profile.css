@@ -74,6 +74,16 @@
   height: 22px;
 }
 
+@media (hover: none) {
+  .add-button:hover {
+    opacity: 1;
+  }
+
+  .edit-button:hover {
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profile__title {
     font-size: 27px;
