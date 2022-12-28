@@ -33,6 +33,7 @@
 }
 
 .edit-button {
+  margin-left: 18px;
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -45,6 +46,9 @@
 .profile__subtitle {
   align-self: flex-start;
   margin: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
   color: #fff;
 }
 

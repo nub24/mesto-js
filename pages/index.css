@@ -18,3 +18,9 @@
 
 /* PROFILE */
 @import url(../blocks/profile/profile.css);
+
+/* CARDS */
+@import url(../blocks/cards/cards.css);
+
+/* FOOTER */
+@import url(../blocks/footer/footer.css);
