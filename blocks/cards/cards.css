@@ -48,3 +48,9 @@
 .like-button:hover {
   opacity: .5;
 }
+
+@media (hover: none) {
+  .like-button:hover {
+    opacity: 1;
+  }
+}
