@@ -23,7 +23,17 @@
       <path d="M134.227 8.8932H135.232V2.42542H134.227V8.8932ZM134.738 1.34745C135.13 1.34745 135.454 1.04428 135.454 0.673727C135.454 0.303177 135.13 0 134.738 0C134.346 0 134.022 0.303177 134.022 0.673727C134.022 1.04428 134.346 1.34745 134.738 1.34745Z" fill="white"/>
       <path d="M139 9.04479C140.142 9.04479 140.739 8.43843 140.943 8.01735H140.994V8.8932H142V4.63187C142 2.57701 140.415 2.3412 139.58 2.3412C138.591 2.3412 137.466 2.67807 136.955 3.85709L137.909 4.19395C138.131 3.72234 138.655 3.21705 139.614 3.21705C140.538 3.21705 140.994 3.70129 140.994 4.53082V4.5645C140.994 5.04453 140.5 5.00242 139.307 5.15401C138.092 5.30981 136.767 5.57509 136.767 7.05729C136.767 8.32053 137.756 9.04479 139 9.04479ZM139.154 8.1521C138.352 8.1521 137.773 7.79839 137.773 7.10782C137.773 6.34988 138.472 6.11407 139.256 6.01302C139.682 5.96249 140.824 5.84458 140.994 5.64247V6.552C140.994 7.36047 140.347 8.1521 139.154 8.1521Z" fill="white"/>
       </svg>
-  </header>  
+  </header>
+
+  <div class="popup popup__unactive">
+    <form action="" class="popup__container">
+      <div class="popup__close-icon"></div>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input type="text" name="profile-name" class="popup__name" placeholder="Введите имя">
+      <input type="text" name="profile-description" class="popup__description" placeholder="Введите описание">
+      <button type="submit" class="save-button">Сохранить</button>
+    </form>
+  </div>
 
   <main class="content">
 
@@ -31,11 +41,13 @@
       <div class="profile__content">
         <img src="./images/avatar.png" alt="" class="profile__photo">
         <div class="profile__info">
-          <h2 class="profile__title">Жак-Ив Кусто<svg class="edit-button" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div class="profile__title-container">
+            <h2 class="profile__title">Жак-Ив Кусто</h2>
+            <svg class="edit-button" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="0.5" y="0.5" width="23" height="23" stroke="white"/>
               <path d="M17 8.32827L9.60377 15.7666L8.28302 14.4194L15.6604 7L17 8.32827ZM7 17L8.96226 16.4118L7.58491 15.0835L7 17Z" fill="white"/>
             </svg>
-          </h2>
+          </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
