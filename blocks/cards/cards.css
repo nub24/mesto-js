@@ -10,6 +10,7 @@
 
 .card {
   max-width: 282px;
+  min-height: 282px;
   background-color: #fff;
   border-radius: 10px;
   
@@ -42,6 +43,7 @@
 .like-button {
   width: 22px;
   height: 19px;
+  background-color: transparent;
   transition: opacity .25s ease-in-out;
 }
 

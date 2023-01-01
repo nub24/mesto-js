@@ -25,32 +25,35 @@
       </svg>
   </header>
 
-  <div class="popup popup__unactive">
-    <form action="" class="popup__container">
+  <!-- <div class="popup popup__unactive">
+    <form action="" class="popup__container" name="profile-info">
       <div class="popup__close-icon"></div>
       <h2 class="popup__title">Редактировать профиль</h2>
       <input type="text" name="profile-name" class="popup__name" placeholder="Введите имя">
       <input type="text" name="profile-description" class="popup__description" placeholder="Введите описание">
       <button type="submit" class="save-button">Сохранить</button>
     </form>
-  </div>
+  </div> -->
 
   <main class="content">
 
     <section class="profile">
+      <img src="./images/avatar.png" alt="" class="profile__photo">
+
       <div class="profile__content">
-        <img src="./images/avatar.png" alt="" class="profile__photo">
-        <div class="profile__info">
-          <div class="profile__title-container">
-            <h2 class="profile__title">Жак-Ив Кусто</h2>
-            <svg class="edit-button" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="profile__title-container">
+          <h2 class="profile__title">Жак-Ив Кусто</h2>
+          <button class="edit-button" type="button">
+            <svg class="edit-button__img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="0.5" y="0.5" width="23" height="23" stroke="white"/>
               <path d="M17 8.32827L9.60377 15.7666L8.28302 14.4194L15.6604 7L17 8.32827ZM7 17L8.96226 16.4118L7.58491 15.0835L7 17Z" fill="white"/>
             </svg>
-          </div>
-          <p class="profile__subtitle">Исследователь океана</p>
+          </button>
         </div>
+        <p class="profile__subtitle">Исследователь океана</p>
+        
       </div>
+
       <button type="button" class="add-button">
         <svg class="add-button__img" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22 9.77778H12.2222V0H9.77778V9.77778H0V12.2222H9.77778V22H12.2222V12.2222H22V9.77778Z" fill="white"/>
@@ -71,7 +74,7 @@
         <img src="./images/photo-2.jpg" alt="Степь и гора вдалеке." class="card__photo">
         <div class="card__info">
           <h3 class="card__title">Гора Эльбрус</h3>
-          <img class="like-button" src="./images/liked-button.svg"></img>
+          <img class="like-button" src="./images/unliked-button.svg"></img>
         </div>
       </div>
 
@@ -79,7 +82,7 @@
         <img src="./images/photo-3.jpg" alt="Высокая гора на фоне тайги." class="card__photo">
         <div class="card__info">
           <h3 class="card__title">Домбай</h3>
-          <img class="like-button" src="./images/liked-button.svg"></img>
+          <img class="like-button" src="./images/unliked-button.svg"></img>
         </div>
       </div>
 
@@ -87,7 +90,7 @@
         <img src="./images/photo-4.jpg" alt="Степь и гора вдалеке." class="card__photo">
         <div class="card__info">
           <h3 class="card__title">Гора Эльбрус</h3>
-          <img class="like-button" src="./images/liked-button.svg"></img>
+          <img class="like-button" src="./images/unliked-button.svg"></img>
         </div>
       </div>
 
@@ -95,7 +98,7 @@
         <img src="./images/photo-3.jpg" alt="Высокая гора на фоне тайги." class="card__photo">
         <div class="card__info">
           <h3 class="card__title">Домбай</h3>
-          <img class="like-button" src="./images/liked-button.svg"></img>
+          <img class="like-button" src="./images/unliked-button.svg"></img>
         </div>
       </div>
 
