@@ -182,6 +182,11 @@
     .profile__info {
       row-gap: 14px;
     }
+
+    .profile__title {
+      max-width: 226px;
+      width: 100%;
+    }
   
     .profile__title-container {
       padding-left: 28px;
