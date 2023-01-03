@@ -4,6 +4,7 @@
 
 * Figma
 * Github Pages
+* О проекте
 
 **Figma**
 
@@ -12,3 +13,7 @@
 **Github Pages**
 
 * [Ссылка на Github Pages](https://nub24.github.io/mesto/)
+
+**О проекте**
+
+* Проект-галерея. Реализован с применением новейших технологий HTML5, CSS3 и JavaScript -)
