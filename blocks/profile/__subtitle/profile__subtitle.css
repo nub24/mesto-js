@@ -8,6 +8,7 @@
   white-space: nowrap;
   overflow: hidden;
   padding-right: 42px;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 919px) {
@@ -20,7 +21,13 @@
 
 @media screen and (max-width: 650px) {
   .profile__subtitle {
-    padding: 0;
+    padding: 0 19px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__subtitle {
+    max-width: 320px;
   }
 }
