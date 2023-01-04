@@ -35,12 +35,3 @@ function handleFormSubmit(evt) {
 editButton.addEventListener("click", popupOpen);
 popupForm.addEventListener("submit", handleFormSubmit);
 closePopupButton.addEventListener("click", popupClose);
-
-// Реализация нажатия/отжатия лайка на карточке
-let likeButtons = document.querySelectorAll('.card__button-like');
-
-for (let i = 0; i < likeButtons.length; i++) {
-    likeButtons[i].addEventListener('click', function() {
-      likeButtons[i].classList.toggle('card__button-like_active');
-    });
-  }
