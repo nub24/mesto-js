@@ -6,7 +6,7 @@
   height: 24px;
   cursor: pointer;
   background-color: transparent;
-  margin: 0 auto;
+  margin: 7px auto 0;
   background-image: url(../../../images/edit-button.svg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -24,6 +24,7 @@
 
 @media screen and (max-width: 919px) {
   .profile__button-edit {
+    margin-top: 0;
     width: 18px;
     height: 18px;
   }

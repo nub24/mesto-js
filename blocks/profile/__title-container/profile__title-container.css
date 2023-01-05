@@ -1,5 +1,5 @@
 .profile__title-container {
-  column-gap: 18px;
+  column-gap: 19px;
   display: grid;
   grid-template-columns: minmax(auto, min-content) 24px;
   grid-template-rows: max-content;
@@ -18,12 +18,5 @@
     gap: 10px;
     margin: 0 auto;
     padding-left: 28px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .profile__title-container {
-    padding-left: 28px;
-    gap: 10px;
   }
 }
