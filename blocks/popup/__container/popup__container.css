@@ -1,5 +1,6 @@
 .popup__container {
   position: relative;
+  z-index: 99;
   background-color:white;
   width: 430px;
   height: 330px;
