@@ -29,55 +29,7 @@
       <button type="button" class="profile__button-add"></button>
     </section>
 
-    <section class="cards">
-      <article class="card">
-        <img src="./images/photo-2.jpg" alt="Лицо" class="card__photo">
-        <div class="card__info">
-          <h2 class="card__title">Пуэрто-Рико</h2>
-          <button type="button" class="card__button-like"></button>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="./images/photo-2.jpg" alt="Лицо." class="card__photo">
-        <div class="card__info">
-          <h2 class="card__title">Гора Эльбрус</h2>
-          <button type="button" class="card__button-like"></button>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="./images/photo-3.jpg" alt="Высокая гора на фоне тайги." class="card__photo">
-        <div class="card__info">
-          <h2 class="card__title">Домбай</h2>
-          <button type="button" class="card__button-like"></button>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="./images/photo-4.jpg" alt="Степь и гора вдалеке." class="card__photo">
-        <div class="card__info">
-          <h2 class="card__title">Гора Эльбрус</h2>
-          <button type="button" class="card__button-like"></button>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="./images/photo-3.jpg" alt="Высокая гора на фоне тайги." class="card__photo">
-        <div class="card__info">
-          <h2 class="card__title">Домбай</h2>
-          <button type="button" class="card__button-like"></button>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="./images/photo-6.jpg" alt="Замок на фоне гор." class="card__photo">
-        <div class="card__info">
-          <h2 class="card__title">Карачаево-Черкессия</h2>
-          <button type="button" class="card__button-like"></button>
-        </div>
-      </article>
-    </section>
+    <section class="cards"></section>
   </main>
 
   <footer class="footer">
@@ -96,6 +48,17 @@
       </form>
     </div>
   </div>
+
+  <template id="card-template">
+    <article class="card">
+      <img src="" alt="" class="card__photo">
+      <div class="card__info">
+        <h2 class="card__title"></h2>
+        <button type="button" class="card__button-like"></button>
+      </div>
+      <button type="button" class="card__button-delete"></button>
+    </article>
+  </template>
 
   <script src="./scripts/index.js"></script>
 </body>
