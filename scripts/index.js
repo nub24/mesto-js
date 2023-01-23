@@ -1,6 +1,7 @@
 "use strict";
 
 // Начальный массив мест
+// name объекта будет проходить и как название карточки и как alt картинки
 const initialCards = [
   {
     name: "Андромеда",
@@ -29,8 +30,8 @@ const initialCards = [
 ];
 
 
-// Блок рендеригна карточек
-let cardsBlock = document.querySelector('.cards');
+// Блок рендеринга карточек
+const cardsBlock = document.querySelector('.cards');
 
 function renderCards(arrCards) {
   arrCards.forEach(card => {
@@ -40,15 +41,13 @@ function renderCards(arrCards) {
     cardElement.querySelector('.card__photo').setAttribute('src', card.link);
     cardElement.querySelector('.card__photo').setAttribute('alt', card.name);
     cardElement.querySelector('.card__title').textContent = card.name;
-
     cardsBlock.append(cardElement);
   });
 }
-
 renderCards(initialCards);
 
 // Блок отслеживания лайков
-let likeButtons = Array.from(document.querySelectorAll('.card__button-like'));
+const likeButtons = Array.from(document.querySelectorAll('.card__button-like'));
 
 function likeUnlikeCard(arrButtons) {
   arrButtons.forEach(likeButton => {
@@ -57,11 +56,10 @@ function likeUnlikeCard(arrButtons) {
     });
   });
 }
-
 likeUnlikeCard(likeButtons);
 
 // Блок удаления карточки
-let deleteButtons = Array.from(document.querySelectorAll('.card__button-delete'));
+const deleteButtons = Array.from(document.querySelectorAll('.card__button-delete'));
 
 function deleteCard(arrDeleteButtons) {
   arrDeleteButtons.forEach(deleteButton => {
@@ -70,10 +68,9 @@ function deleteCard(arrDeleteButtons) {
     });
   });
 }
-
 deleteCard(deleteButtons);
 
-//Переменные для формы редактирования
+//Переменные для форм
 let popupWindow = document.querySelector(".popup");
 let popupForm = document.querySelector(".popup__form");
 let inputName = document.querySelector(".popup__input_name_profile-name");
@@ -97,7 +94,7 @@ function popupClose() {
   popupWindow.classList.remove("popup_active");
 }
 
-//Функция отправки формы
+//Функция отправки формы редактирования
 function handleFormSubmit(evt) {
   evt.preventDefault();
   profileTitle.textContent = inputName.value;
