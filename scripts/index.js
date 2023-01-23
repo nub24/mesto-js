@@ -30,18 +30,19 @@ const initialCards = [
 ];
 
 // Функция лайк/анлайк
-function likeUnlikeCard(e) {
-  e.target.classList.toggle("card__button-like_active");
+function likeUnlikeCard(event) {
+  event.target.classList.toggle("card__button-like_active");
 };
 
 // Функция удаления карточки
-function deleteCard(e) {
-  e.target.closest(".card").remove();
+function deleteCard(event) {
+  event.target.closest(".card").remove();
 }
 
-// Блок рендеринга карточек
+// Блок для рендеринга карточек
 const cardsBlock = document.querySelector(".cards");
 
+// Функция создания карточки
 function createCard({ name, link }) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -58,6 +59,7 @@ function createCard({ name, link }) {
   return cardElement;
 }
 
+// Функция рендеринга карточки из массива
 function renderCard(arrCards) {
   arrCards.forEach((item) => {
     arrCards.length > 1
@@ -66,6 +68,7 @@ function renderCard(arrCards) {
   });
 }
 
+// Рендер начального массива
 renderCard(initialCards);
 
 const addButton = document.querySelector(".profile__button-add");
@@ -82,17 +85,15 @@ addButton.addEventListener("click", () => {
 
 //Переменные для формы редактирования
 let popupEdit = document.querySelector(".popup_edit");
-let popupForm = document.querySelector(".popup__form");
+let popupForm = document.querySelector(".popup__form-edit");
 let inputName = document.querySelector(".popup__input_name_profile-name");
-let inputDescription = document.querySelector(
-  ".popup__input_name_profile-description"
-);
+let inputDescription = document.querySelector(".popup__input_name_profile-description");
 let profileTitle = document.querySelector(".profile__title");
 let profileSubtitle = document.querySelector(".profile__subtitle");
 let editButton = document.querySelector(".profile__button-edit");
 let closePopupButton = document.querySelector(".popup__button-close");
 
-//Функция открытия popup
+//Функция открытия окна редактирования
 function popupEditOpen() {
   //Значения инпутов при инициализации popup-окна.
   inputName.value = profileTitle.textContent;
