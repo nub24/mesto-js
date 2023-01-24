@@ -42,20 +42,39 @@ function deleteCard(event) {
 // Блок для рендеринга карточек
 const cardsBlock = document.querySelector(".cards");
 
+const popupView = document.querySelector('.popup_type_view'); //окно просмотра
+const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
+
+const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
+const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
+
+// Закрытие попапов
+const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'));
+closeButtons.forEach((closeButton) => {
+  closeButton.addEventListener('click', function(event){
+    event.target.closest('.popup').classList.remove('popup_active');
+  });
+});
+
 // Функция создания карточки
 function createCard({ name, link }) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const likeButton = cardElement.querySelector('.card__button-like');
   const deleteButton = cardElement.querySelector('.card__button-delete');
-
+  const viewPhoto = cardElement.querySelector('.card__photo');
+  
   cardElement.querySelector(".card__photo").setAttribute("src", link);
   cardElement.querySelector(".card__photo").setAttribute("alt", name);
   cardElement.querySelector(".card__title").textContent = name;
 
+  // Слушатели на лафк, удаление и просмотр картинок
   likeButton.addEventListener('click', likeUnlikeCard);
-  deleteButton.addEventListener('click', deleteCard)
-
+  deleteButton.addEventListener('click', deleteCard);
+  viewPhoto.addEventListener('click', function() {
+    popupPhoto.setAttribute('src', link);
+    popupOpen(popupView);
+  });
   return cardElement;
 }
 
@@ -71,50 +90,8 @@ function renderCard(arrCards) {
 // Рендер начального массива
 renderCard(initialCards);
 
-const addButton = document.querySelector(".profile__button-add");
-const addArray = [
-  {
-    name: "1",
-    link: "https://images.unsplash.com/photo-1674423301019-5f8c0d855efd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-  },
-];
 
-addButton.addEventListener("click", () => {
-  renderCard(addArray);
-});
-
-//Переменные для формы редактирования
-let popupEdit = document.querySelector(".popup_edit");
-let popupForm = document.querySelector(".popup__form-edit");
-let inputName = document.querySelector(".popup__input_name_profile-name");
-let inputDescription = document.querySelector(".popup__input_name_profile-description");
-let profileTitle = document.querySelector(".profile__title");
-let profileSubtitle = document.querySelector(".profile__subtitle");
-let editButton = document.querySelector(".profile__button-edit");
-let closePopupButton = document.querySelector(".popup__button-close");
-
-//Функция открытия окна редактирования
-function popupEditOpen() {
-  //Значения инпутов при инициализации popup-окна.
-  inputName.value = profileTitle.textContent;
-  inputDescription.value = profileSubtitle.textContent;
-
-  popupEdit.classList.add("popup_active");
+// функция открытия попап
+function popupOpen(popupName) {
+  popupName.classList.add('popup_active');
 }
-
-//Функция закрытия popup
-function popupClose() {
-  popupEdit.classList.remove("popup_active");
-}
-
-//Функция отправки формы редактирования
-function handleFormEditSubmit(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = inputName.value;
-  profileSubtitle.textContent = inputDescription.value;
-  popupClose();
-}
-
-editButton.addEventListener("click", popupEditOpen);
-popupForm.addEventListener("submit", handleFormEditSubmit);
-closePopupButton.addEventListener("click", popupClose);
