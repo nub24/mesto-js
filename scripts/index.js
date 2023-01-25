@@ -24,13 +24,13 @@ const inputLink = document.querySelector(".popup__input_place_link"); //инпу
 const buttonAdd = document.querySelector(".profile__button-add"); //кнопка добавления
 
 // массив кнопок закрытия
-const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'));
+const buttonCloseList = Array.from(document.querySelectorAll('.popup__button-close'));
 
 // Функция создания карточки
 function createCard({ name, link }) {
   const cardElement = cardTemplate.cloneNode(true);
   const buttonLike = cardElement.querySelector('.card__button-like');
-  const buttonDelete = cardElement.querySelector('.card__button-delete');
+  const buttonDelete = cardElement.querySelector('.card__button-delete').closest('.card');
   const viewPhoto = cardElement.querySelector('.card__photo');
 
   viewPhoto.src = link; // установка атрибута src
@@ -41,7 +41,6 @@ function createCard({ name, link }) {
   buttonLike.addEventListener('click', () => toggleLike(buttonLike));
   buttonDelete.addEventListener('click', () => deleteCard(buttonDelete));
   viewPhoto.addEventListener('click', function() {
-    popupView.style = 'background-color: rgba(0, 0, 0, 0.9)';
     popupPhoto.src = link;
     popupPhoto.alt = name;
     popupCaption.textContent = name;
@@ -51,8 +50,8 @@ function createCard({ name, link }) {
 }
 
 // Функция рендеринга карточки из массива
-function renderCards(arrCards) {
-  cardsBlock.prepend(createCard(arrCards));
+function renderCard(cardData) {
+  cardsBlock.prepend(createCard(cardData));
 }
 
 // Функция переключения лайк/анлайк
@@ -62,7 +61,7 @@ function toggleLike(buttonLike) {
 
 // Функция удаления карточки
 function deleteCard(buttonDelete) {
-  buttonDelete.closest(".card").remove();
+  buttonDelete.remove();
 }
 
 // функция открытия попап
@@ -76,8 +75,8 @@ function popupClose(popupName) {
 }
 
 // функция закрытия всех попапов по крестику
-closeButtons.forEach((closeButton) => {
-  closeButton.addEventListener('click', function(event){
+buttonCloseList.forEach((buttonClose) => {
+  buttonClose.addEventListener('click', function(event){
     popupClose(event.target.closest('.popup'));
   });
 });
@@ -103,14 +102,14 @@ function handleFormAddSubmit(evt) {
   const cardData = {};
   cardData.name = inputPlace.value;
   cardData.link = inputLink.value;
-  renderCards(cardData);
+  renderCard(cardData);
   popupAddForm.reset();
   popupClose(popupAdd);
 }
 
 // Рендер начального массива
 initialCards.forEach(item => {
-  renderCards(item);
+  renderCard(item);
 });
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
