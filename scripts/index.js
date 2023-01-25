@@ -29,8 +29,8 @@ const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'
 // Функция создания карточки
 function createCard({ name, link }) {
   const cardElement = cardTemplate.cloneNode(true);
-  const likeButton = cardElement.querySelector('.card__button-like');
-  const deleteButton = cardElement.querySelector('.card__button-delete');
+  const buttonLike = cardElement.querySelector('.card__button-like');
+  const buttonDelete = cardElement.querySelector('.card__button-delete');
   const viewPhoto = cardElement.querySelector('.card__photo');
 
   viewPhoto.src = link; // установка атрибута src
@@ -38,8 +38,8 @@ function createCard({ name, link }) {
   cardElement.querySelector(".card__title").textContent = name; // 
 
   // Слушатели на лайк, удаление и просмотр картинок
-  likeButton.addEventListener('click', () => toggleLike(likeButton));
-  deleteButton.addEventListener('click', () => deleteCard(deleteButton));
+  buttonLike.addEventListener('click', () => toggleLike(buttonLike));
+  buttonDelete.addEventListener('click', () => deleteCard(buttonDelete));
   viewPhoto.addEventListener('click', function() {
     popupView.style = 'background-color: rgba(0, 0, 0, 0.9)';
     popupPhoto.src = link;
