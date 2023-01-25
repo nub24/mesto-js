@@ -1,39 +1,49 @@
 "use strict";
 
-// Функция лайк/анлайк
-function toggleLike(event) {
-  event.target.classList.toggle("card__button-like_active");
-};
-
-// Функция удаления карточки
-function deleteCard(event) {
-  event.target.closest(".card").remove();
-}
-
-// Блок для рендеринга карточек
-const cardsBlock = document.querySelector(".cards");
+//переменные для рендеринга и просмотра картинки
+const cardTemplate = document.querySelector("#card-template").content; //шаблон
+const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
 const popupView = document.querySelector('.popup_type_view'); //окно просмотра
 const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
-const popupCaption = document.querySelector('.popup__caption');
+const popupCaption = document.querySelector('.popup__caption'); //описание к картинке
+
+//Переменные для формы редактирования
+const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
+const popupEditForm = document.querySelector(".popup__form-edit"); //форма редактирования
+const inputName = document.querySelector(".popup__input_profile_name"); //инпут имени
+const inputDescription = document.querySelector(".popup__input_profile_description"); //инпут описания
+const profileTitle = document.querySelector(".profile__title"); //имя на странице
+const profileSubtitle = document.querySelector(".profile__subtitle"); //описание на странице
+const editButton = document.querySelector(".profile__button-edit"); //кнопка редактирования
+
+// Переменные для формы добавления
+const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
+const popupAddForm = document.querySelector(".popup__form-add"); //форма добавления
+const inputPlace = document.querySelector(".popup__input_place_name"); //инпут названия места
+const inputLink = document.querySelector(".popup__input_place_link"); //инпут ссылки
+const addButton = document.querySelector(".profile__button-add"); //кнопка добавления
+
+// массив кнопок закрытия
+const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'));
 
 // Функция создания карточки
 function createCard({ name, link }) {
-  const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const likeButton = cardElement.querySelector('.card__button-like');
   const deleteButton = cardElement.querySelector('.card__button-delete');
   const viewPhoto = cardElement.querySelector('.card__photo');
-  
-  viewPhoto.setAttribute("src", link);
-  viewPhoto.setAttribute("alt", name);
-  cardElement.querySelector(".card__title").textContent = name;
+
+  viewPhoto.src = link; // установка атрибута src
+  viewPhoto.alt = name; // установка атрибута alt
+  cardElement.querySelector(".card__title").textContent = name; // 
 
   // Слушатели на лайк, удаление и просмотр картинок
   likeButton.addEventListener('click', toggleLike);
   deleteButton.addEventListener('click', deleteCard);
   viewPhoto.addEventListener('click', function() {
     popupView.style = 'background-color: rgba(0, 0, 0, 0.9)';
-    popupPhoto.setAttribute('src', link);
+    popupPhoto.src = link;
+    popupPhoto.alt = name;
     popupCaption.textContent = name;
     popupOpen(popupView);
   });
@@ -49,9 +59,15 @@ function renderCards(arrCards) {
   });
 }
 
-// Рендер начального массива
-renderCards(initialCards);
+// Функция переключения лайк/анлайк
+function toggleLike(event) {
+  event.target.classList.toggle("card__button-like_active");
+};
 
+// Функция удаления карточки
+function deleteCard(event) {
+  event.target.closest(".card").remove();
+}
 
 // функция открытия попап
 function popupOpen(popupName) {
@@ -63,31 +79,20 @@ function popupClose(popupName) {
   popupName.classList.remove('popup_active');
 }
 
-// Закрытие всех попапов
-const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'));
+// функция закрытия всех попапов по крестику
 closeButtons.forEach((closeButton) => {
   closeButton.addEventListener('click', function(event){
     popupClose(event.target.closest('.popup'));
   });
 });
 
-// Блок редактирования профиля
-//Переменные для формы редактирования
-const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
-const popupEditForm = document.querySelector(".popup__form-edit");
-const inputName = document.querySelector(".popup__input_profile_name");
-const inputDescription = document.querySelector(".popup__input_profile_description");
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
-const editButton = document.querySelector(".profile__button-edit");
-
-// Слушатель на кнопке редактирования
-editButton.addEventListener('click', function(){
+//функция открытия окна редактирования профиля
+function openEditForm() {
   //Значения инпутов при инициализации popup-окна.
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileSubtitle.textContent;
   popupOpen(popupEdit);
-});
+}
 
 //Функция на сабмит формы редактирования
 function handleFormEditSubmit(evt) {
@@ -96,18 +101,6 @@ function handleFormEditSubmit(evt) {
   profileSubtitle.textContent = inputDescription.value;
   popupClose(popupEdit);
 }
-popupEditForm.addEventListener('submit', handleFormEditSubmit);
-
-// Переменные для формы добавления
-const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
-const popupAddForm = document.querySelector(".popup__form-add");
-const inputPlace = document.querySelector(".popup__input_place_name");
-const inputLink = document.querySelector(".popup__input_place_link");
-const addButton = document.querySelector(".profile__button-add");
-
-// Слушатель на кнопке добавления
-addButton.addEventListener('click', () => popupOpen(popupAdd));
-
 // Функция на сабмит формы добавления места
 function handleFormAddSubmit(evt) {
   evt.preventDefault();
@@ -119,4 +112,8 @@ function handleFormAddSubmit(evt) {
   popupClose(popupAdd);
 }
 
-popupAddForm.addEventListener('submit', handleFormAddSubmit);
+renderCards(initialCards); // Рендер начального массива
+editButton.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
+popupEditForm.addEventListener('submit', handleFormEditSubmit); // сабмит формы редактирования
+addButton.addEventListener('click', () => popupOpen(popupAdd)); // слушатель на кнопке добавления
+popupAddForm.addEventListener('submit', handleFormAddSubmit); //сабмит формы добавления
