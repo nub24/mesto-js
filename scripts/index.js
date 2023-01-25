@@ -1,7 +1,7 @@
 "use strict";
 
 //переменные для рендеринга и просмотра картинки
-const cardTemplate = document.querySelector("#card-template").content; //шаблон
+const cardTemplate = document.querySelector("#card-template").content.querySelector(".card"); //шаблон
 const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
 const popupView = document.querySelector('.popup_type_view'); //окно просмотра
 const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
@@ -14,21 +14,21 @@ const inputName = document.querySelector(".popup__input_profile_name"); //инп
 const inputDescription = document.querySelector(".popup__input_profile_description"); //инпут описания
 const profileTitle = document.querySelector(".profile__title"); //имя на странице
 const profileSubtitle = document.querySelector(".profile__subtitle"); //описание на странице
-const editButton = document.querySelector(".profile__button-edit"); //кнопка редактирования
+const buttonEdit = document.querySelector(".profile__button-edit"); //кнопка редактирования
 
 // Переменные для формы добавления
 const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
 const popupAddForm = document.querySelector(".popup__form-add"); //форма добавления
 const inputPlace = document.querySelector(".popup__input_place_name"); //инпут названия места
 const inputLink = document.querySelector(".popup__input_place_link"); //инпут ссылки
-const addButton = document.querySelector(".profile__button-add"); //кнопка добавления
+const buttonAdd = document.querySelector(".profile__button-add"); //кнопка добавления
 
 // массив кнопок закрытия
 const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'));
 
 // Функция создания карточки
 function createCard({ name, link }) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.cloneNode(true);
   const likeButton = cardElement.querySelector('.card__button-like');
   const deleteButton = cardElement.querySelector('.card__button-delete');
   const viewPhoto = cardElement.querySelector('.card__photo');
@@ -38,8 +38,8 @@ function createCard({ name, link }) {
   cardElement.querySelector(".card__title").textContent = name; // 
 
   // Слушатели на лайк, удаление и просмотр картинок
-  likeButton.addEventListener('click', toggleLike);
-  deleteButton.addEventListener('click', deleteCard);
+  likeButton.addEventListener('click', () => toggleLike(likeButton));
+  deleteButton.addEventListener('click', () => deleteCard(deleteButton));
   viewPhoto.addEventListener('click', function() {
     popupView.style = 'background-color: rgba(0, 0, 0, 0.9)';
     popupPhoto.src = link;
@@ -52,21 +52,17 @@ function createCard({ name, link }) {
 
 // Функция рендеринга карточки из массива
 function renderCards(arrCards) {
-  arrCards.forEach((item) => {
-    arrCards.length > 1
-      ? cardsBlock.append(createCard(item))
-      : cardsBlock.prepend(createCard(item));
-  });
+  cardsBlock.prepend(createCard(arrCards));
 }
 
 // Функция переключения лайк/анлайк
-function toggleLike(event) {
-  event.target.classList.toggle("card__button-like_active");
+function toggleLike(buttonLike) {
+  buttonLike.classList.toggle("card__button-like_active");
 };
 
 // Функция удаления карточки
-function deleteCard(event) {
-  event.target.closest(".card").remove();
+function deleteCard(buttonDelete) {
+  buttonDelete.closest(".card").remove();
 }
 
 // функция открытия попап
@@ -107,13 +103,17 @@ function handleFormAddSubmit(evt) {
   const cardData = {};
   cardData.name = inputPlace.value;
   cardData.link = inputLink.value;
-  renderCards([cardData]);
+  renderCards(cardData);
   popupAddForm.reset();
   popupClose(popupAdd);
 }
 
-renderCards(initialCards); // Рендер начального массива
-editButton.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
+// Рендер начального массива
+initialCards.forEach(item => {
+  renderCards(item);
+});
+
+buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 popupEditForm.addEventListener('submit', handleFormEditSubmit); // сабмит формы редактирования
-addButton.addEventListener('click', () => popupOpen(popupAdd)); // слушатель на кнопке добавления
+buttonAdd.addEventListener('click', () => popupOpen(popupAdd)); // слушатель на кнопке добавления
 popupAddForm.addEventListener('submit', handleFormAddSubmit); //сабмит формы добавления
