@@ -30,7 +30,7 @@ const buttonCloseList = Array.from(document.querySelectorAll('.popup__button-clo
 function createCard({ name, link }) {
   const cardElement = cardTemplate.cloneNode(true);
   const buttonLike = cardElement.querySelector('.card__button-like');
-  const buttonDelete = cardElement.querySelector('.card__button-delete').closest('.card');
+  const buttonDelete = cardElement.querySelector('.card__button-delete');
   const viewPhoto = cardElement.querySelector('.card__photo');
 
   viewPhoto.src = link; // установка атрибута src
@@ -61,7 +61,7 @@ function toggleLike(buttonLike) {
 
 // Функция удаления карточки
 function deleteCard(buttonDelete) {
-  buttonDelete.remove();
+  buttonDelete.closest('.card').remove();
 }
 
 // функция открытия попап
