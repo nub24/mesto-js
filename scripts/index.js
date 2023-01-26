@@ -39,8 +39,8 @@ function createCard({ name, link }) {
 
   // Слушатели на лайк, удаление и просмотр картинок
   buttonLike.addEventListener('click', () => toggleLike(buttonLike));
-  buttonDelete.addEventListener('click', () => deleteCard(cardElement));
-  viewPhoto.addEventListener('click', function() {
+  buttonDelete.addEventListener('click', () => cardElement.remove());
+  viewPhoto.addEventListener('click', () => {
     popupPhoto.src = link;
     popupPhoto.alt = name;
     popupCaption.textContent = name;
@@ -58,11 +58,6 @@ function renderCard(cardData) {
 function toggleLike(buttonLike) {
   buttonLike.classList.toggle("card__button-like_active");
 };
-
-// Функция удаления карточки
-function deleteCard(card) {
-  card.remove();
-}
 
 // функция открытия попап
 function popupOpen(popupName) {
