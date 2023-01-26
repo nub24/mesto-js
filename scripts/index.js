@@ -32,14 +32,14 @@ function createCard({ name, link }) {
   const buttonLike = cardElement.querySelector('.card__button-like');
   const buttonDelete = cardElement.querySelector('.card__button-delete');
   const viewPhoto = cardElement.querySelector('.card__photo');
-
+  
   viewPhoto.src = link; // установка атрибута src
   viewPhoto.alt = name; // установка атрибута alt
   cardElement.querySelector(".card__title").textContent = name; // 
 
   // Слушатели на лайк, удаление и просмотр картинок
   buttonLike.addEventListener('click', () => toggleLike(buttonLike));
-  buttonDelete.addEventListener('click', () => deleteCard(buttonDelete));
+  buttonDelete.addEventListener('click', () => deleteCard(cardElement));
   viewPhoto.addEventListener('click', function() {
     popupPhoto.src = link;
     popupPhoto.alt = name;
@@ -60,8 +60,8 @@ function toggleLike(buttonLike) {
 };
 
 // Функция удаления карточки
-function deleteCard(buttonDelete) {
-  buttonDelete.closest('.card').remove();
+function deleteCard(card) {
+  card.remove();
 }
 
 // функция открытия попап
@@ -96,6 +96,7 @@ function handleFormEditSubmit(evt) {
   profileSubtitle.textContent = inputDescription.value;
   popupClose(popupEdit);
 }
+
 // Функция на сабмит формы добавления места
 function handleFormAddSubmit(evt) {
   evt.preventDefault();
