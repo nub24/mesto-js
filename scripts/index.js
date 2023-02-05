@@ -1,6 +1,7 @@
 "use strict";
 
 import initialCards from "./cards.js"; //импорт начальных карточек
+import enableValidation from "./validate.js";
 
 //переменные для рендеринга и просмотра картинки
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card"); //шаблон
