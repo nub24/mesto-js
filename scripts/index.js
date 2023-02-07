@@ -1,7 +1,7 @@
 "use strict";
 
 import initialCards from "./cards.js"; //импорт начальных карточек
-import enableValidation from "./validate.js";
+import enableValidation from "./validate.js"; //импорт блока валидации
 
 //переменные для рендеринга и просмотра картинки
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card"); //шаблон
@@ -110,6 +110,8 @@ function handleFormAddSubmit(evt) {
 initialCards.forEach(item => {
   renderCard(item);
 });
+
+enableValidation();
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 popupEditForm.addEventListener('submit', handleFormEditSubmit); // сабмит формы редактирования

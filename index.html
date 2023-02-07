@@ -43,7 +43,7 @@
     <div class="popup__container">
       <button type="button" class="popup__button-close"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="#" class="popup__form popup__form-edit" name="form-profile-edit">
+      <form action="#" class="popup__form popup__form-edit" name="form-profile-edit" novalidate>
         <input 
           type="text" 
           name="profile-name" 
@@ -60,7 +60,7 @@
           required
           minlength="2"
           maxlength="200">
-        <button type="submit" class="popup__button-save">Сохранить</button>
+        <button type="submit" class="popup__button-save" disabled>Сохранить</button>
       </form>
     </div>
   </div>
@@ -70,7 +70,7 @@
     <div class="popup__container">
       <button type="button" class="popup__button-close"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form action="#" class="popup__form popup__form-add" name="form-add-card">
+      <form action="#" class="popup__form popup__form-add" name="form-add-card" novalidate>
         <input 
           type="text" 
           name="place-name" 

@@ -17,6 +17,17 @@
   opacity: .8;
 }
 
+.popup__button-save:disabled {
+  background-color: transparent;
+  color: #000;
+  opacity: .2;
+  border: 1px solid black;
+}
+
+.popup__button-save:disabled:hover {
+  opacity: .2;
+}
+
 @media screen and (max-width: 618px) {
   .popup__button-save {
     margin-top: 45px;
