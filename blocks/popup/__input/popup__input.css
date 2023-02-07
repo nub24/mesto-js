@@ -17,7 +17,3 @@
 .popup__input:first-of-type {
   margin-bottom: 28px;
 }
-
-.popup__input:invalid {
-  border-bottom: 1px solid #ff0000;
-}
