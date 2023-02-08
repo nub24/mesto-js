@@ -8,7 +8,7 @@ const objValidation = {
 }
 
 const enableValidation = function() {
-  console.log(objValidation.formSelector);
+  console.log('test');
 }
 
 export default enableValidation;
