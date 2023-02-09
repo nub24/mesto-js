@@ -63,17 +63,22 @@ function toggleLike(buttonLike) {
   buttonLike.classList.toggle("card__button-like_active");
 };
 
-const escHandler = (e) => e.key === 'Escape';
+function handleEscClose(e) { 
+  if (e.key === "Escape") { 
+    const openPopup = document.querySelector('.popup_active');
+    popupClose(openPopup)
+  }}
 
 // функция открытия попап
 function popupOpen(popupName) {
   popupName.classList.add('popup_active');
-  document.addEventListener('keydown', e => escHandler(e) ? popupClose(popupName) : null,  { once: true })
+  document.addEventListener('keydown', handleEscClose)
 }
 
 // Функция закрытия попап
 function popupClose(popupName) {
-  popupName.classList.remove('popup_active');
+  document.removeEventListener('keydown', handleEscClose)
+  popupName.classList.remove('popup_active');  
 }
 
 // функция закрытия всех попапов по крестику
