@@ -22,7 +22,7 @@
   color: #000;
   opacity: .2;
   border: 1px solid black;
-  cursor: default
+  cursor: default;
 }
 
 .popup__button-save:disabled:hover {
