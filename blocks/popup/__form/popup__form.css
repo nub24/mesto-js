@@ -1,5 +1,8 @@
 .popup__form {
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  /* display: flex;
+  flex-direction: column; */
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 28px minmax(30px, auto) 28px minmax(48px, max-content) auto;
 }

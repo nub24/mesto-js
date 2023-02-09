@@ -1,8 +1,5 @@
 "use strict";
 
-import initialCards from "./cards.js"; //импорт начальных карточек
-import enableValidation from "./validate.js"; //импорт блока валидации
-
 //переменные для рендеринга и просмотра картинки
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card"); //шаблон
 const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
@@ -18,6 +15,7 @@ const inputDescription = document.querySelector(".popup__input_profile_descripti
 const profileTitle = document.querySelector(".profile__title"); //имя на странице
 const profileSubtitle = document.querySelector(".profile__subtitle"); //описание на странице
 const buttonEdit = document.querySelector(".profile__button-edit"); //кнопка редактирования
+const submitButtonEdit = document.querySelector('.submit-button-edit'); //кнопка сабмита на форме редактирования
 
 // Переменные для формы добавления
 const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
@@ -28,6 +26,9 @@ const buttonAdd = document.querySelector(".profile__button-add"); //кнопка
 
 // массив кнопок закрытия
 const buttonCloseList = Array.from(document.querySelectorAll('.popup__button-close'));
+
+//массив оверлеев для отслеживания
+const popups = Array.from(document.querySelectorAll('.popup'));
 
 // Функция создания карточки
 function createCard({ name, link }) {
@@ -62,9 +63,12 @@ function toggleLike(buttonLike) {
   buttonLike.classList.toggle("card__button-like_active");
 };
 
+const escHandler = (e) => e.key === 'Escape';
+
 // функция открытия попап
 function popupOpen(popupName) {
   popupName.classList.add('popup_active');
+  document.addEventListener('keydown', e => escHandler(e) ? popupClose(popupName) : null,  { once: true })
 }
 
 // Функция закрытия попап
@@ -79,11 +83,19 @@ buttonCloseList.forEach((buttonClose) => {
   });
 });
 
+//функция закрытия попапов по клику на оверлей
+popups.forEach(popup =>  popup.addEventListener('click', e => {
+  if (e.target.classList.contains('popup')){
+    popupClose(popup);
+  }
+}))
+
 //функция открытия окна редактирования профиля
 function openEditForm() {
   //Значения инпутов при инициализации popup-окна.
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileSubtitle.textContent;
+  submitButtonEdit.removeAttribute('disabled', '');
   popupOpen(popupEdit);
 }
 
@@ -92,6 +104,7 @@ function handleFormEditSubmit(evt) {
   evt.preventDefault();
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputDescription.value;
+  
   popupClose(popupEdit);
 }
 
@@ -111,7 +124,13 @@ initialCards.forEach(item => {
   renderCard(item);
 });
 
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save', //кнопка сабмита
+  errorClass: 'popup__input-error_visible', // отображение спана с ошибкой
+  inputErrorClass: 'popup__input_type_error', // красная линия под инпутом
+});
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 popupEditForm.addEventListener('submit', handleFormEditSubmit); // сабмит формы редактирования
