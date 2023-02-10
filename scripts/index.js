@@ -41,8 +41,14 @@ function createCard({ name, link }) {
   viewPhoto.alt = name; // установка атрибута alt
   cardElement.querySelector(".card__title").textContent = name; // 
 
-  // Слушатели на лайк, удаление и просмотр картинок
-  buttonLike.addEventListener('click', () => toggleLike(buttonLike));
+  // Слушатели на лайк (через всплытие)
+  cardElement.addEventListener('click', (e) => {
+    if (e.target == buttonLike) {
+      toggleLike(buttonLike)
+    }
+  });
+
+  //Слушатели на удаление и просмотр картинок
   buttonDelete.addEventListener('click', () => cardElement.remove());
   viewPhoto.addEventListener('click', () => {
     popupPhoto.src = link;

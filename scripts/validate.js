@@ -54,7 +54,7 @@ const setEventListeners = ((form, {...rest}) => {
     input.addEventListener('input', e => {
       //**поиск errorplace
       const errorPlace =  form.querySelector(`.${input.name}-error`);
-      checkInputValidity(input, errorPlace, rest.errorClass, rest.inputErrorClass)
+      checkInputValidity(input, errorPlace, rest.errorClass, rest.inputErrorClass);
       toggleButtonState(inputs, submitButton);
     })
   })
