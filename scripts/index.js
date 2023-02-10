@@ -48,7 +48,7 @@ function createCard({ name, link }) {
     popupPhoto.src = link;
     popupPhoto.alt = name;
     popupCaption.textContent = name;
-    popupOpen(popupView);
+    openPopup(popupView);
   });
   return cardElement;
 }
@@ -63,20 +63,21 @@ function toggleLike(buttonLike) {
   buttonLike.classList.toggle("card__button-like_active");
 };
 
+//закрытие попапа по клавише Escape
 function handleEscClose(e) { 
   if (e.key === "Escape") { 
-    const openPopup = document.querySelector('.popup_active');
-    popupClose(openPopup)
+    const popupOpened = document.querySelector('.popup_active');
+    closePopup(popupOpened)
   }}
 
 // функция открытия попап
-function popupOpen(popupName) {
+function openPopup(popupName) {
   popupName.classList.add('popup_active');
   document.addEventListener('keydown', handleEscClose)
 }
 
 // Функция закрытия попап
-function popupClose(popupName) {
+function closePopup(popupName) {
   document.removeEventListener('keydown', handleEscClose)
   popupName.classList.remove('popup_active');  
 }
@@ -84,14 +85,14 @@ function popupClose(popupName) {
 // функция закрытия всех попапов по крестику
 buttonCloseList.forEach((buttonClose) => {
   buttonClose.addEventListener('click', function(event){
-    popupClose(event.target.closest('.popup'));
+    closePopup(event.target.closest('.popup'));
   });
 });
 
 //функция закрытия попапов по клику на оверлей
 popups.forEach(popup =>  popup.addEventListener('click', e => {
   if (e.target.classList.contains('popup')){
-    popupClose(popup);
+    closePopup(popup);
   }
 }))
 
@@ -101,7 +102,7 @@ function openEditForm() {
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileSubtitle.textContent;
   submitButtonEdit.removeAttribute('disabled', '');
-  popupOpen(popupEdit);
+  openPopup(popupEdit);
 }
 
 //Функция на сабмит формы редактирования
@@ -109,8 +110,7 @@ function handleFormEditSubmit(evt) {
   evt.preventDefault();
   profileTitle.textContent = inputName.value;
   profileSubtitle.textContent = inputDescription.value;
-  
-  popupClose(popupEdit);
+  closePopup(popupEdit);
 }
 
 // Функция на сабмит формы добавления места
@@ -121,7 +121,7 @@ function handleFormAddSubmit(evt) {
   cardData.link = inputLink.value;
   renderCard(cardData);
   popupAddForm.reset();
-  popupClose(popupAdd);
+  closePopup(popupAdd);
 }
 
 // Рендер начального массива
@@ -139,5 +139,5 @@ enableValidation({
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 popupEditForm.addEventListener('submit', handleFormEditSubmit); // сабмит формы редактирования
-buttonAdd.addEventListener('click', () => popupOpen(popupAdd)); // слушатель на кнопке добавления
+buttonAdd.addEventListener('click', () => openPopup(popupAdd)); // слушатель на кнопке добавления
 popupAddForm.addEventListener('submit', handleFormAddSubmit); //сабмит формы добавления

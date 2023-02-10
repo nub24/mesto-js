@@ -43,6 +43,13 @@ const setEventListeners = ((form, {...rest}) => {
   const submitButton = form.querySelector(rest.submitButtonSelector);
   toggleButtonState(inputs, submitButton);
 
+  //сброс кнопки при резете формы
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      toggleButtonState(inputs, submitButton), 0
+    })
+  })
+
   inputs.forEach(input => {
     input.addEventListener('input', e => {
       //**поиск errorplace
