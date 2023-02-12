@@ -104,10 +104,16 @@ popups.forEach(popup =>  popup.addEventListener('click', e => {
 
 //функция открытия окна редактирования профиля
 function openEditForm() {
-  //Значения инпутов при инициализации popup-окна.
+  //Значения инпутов и кнопки при инициализации popup-окна.
   inputName.value = profileTitle.textContent;
   inputDescription.value = profileSubtitle.textContent;
   submitButtonEdit.removeAttribute('disabled', '');
+
+  //проверка полей ввода при открытии формы
+  let initInput = new Event('input');
+  inputName.dispatchEvent(initInput);
+  inputDescription.dispatchEvent(initInput);
+
   openPopup(popupEdit);
 }
 
