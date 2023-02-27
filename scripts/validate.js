@@ -1,3 +1,5 @@
+'use strict';
+
 //показ ошибки
 const showInputError = (input, errorPlace, errorMessage, errorClass, inputErrorClass) => {
   input.classList.add(inputErrorClass);

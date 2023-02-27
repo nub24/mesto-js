@@ -1,5 +1,7 @@
 "use strict";
 
+import initialCards from './data.js';
+
 //переменные для рендеринга и просмотра картинки
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card"); //шаблон
 const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
