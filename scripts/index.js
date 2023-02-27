@@ -41,7 +41,7 @@ function createCard({ name, link }) {
   viewPhoto.alt = name; // установка атрибута alt
   cardElement.querySelector(".card__title").textContent = name; // 
 
-  // Слушатели на лайк (через всплытие)
+  // Слушатель на лайк (через всплытие)
   cardElement.addEventListener('click', (e) => {
     if (e.target == buttonLike) {
       toggleLike(buttonLike)
