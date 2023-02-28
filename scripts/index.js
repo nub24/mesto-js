@@ -2,6 +2,7 @@
 
 import initialCards from './data.js';
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 //переменные для рендеринга
 const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
@@ -37,7 +38,7 @@ function handleEscClose(e) {
   }}
 
 // функция открытия попап
-function openPopup(popupName) {
+export function openPopup(popupName) {
   popupName.classList.add('popup_active');
   document.addEventListener('keydown', handleEscClose)
 }
@@ -96,13 +97,16 @@ function handleFormAddSubmit(evt) {
   closePopup(popupAdd);
 }
 
-// Рендер начального массива
-initialCards.forEach(item => {
-  const card = new Card(item, "#card-template");
+//создание и добавление в разметку экземпляпв карточки
+function renderCard (item) {
+  const card = new Card (item, "#card-template");
   const cardElement = card.createCard();
 
   cardsBlock.prepend(cardElement);
-});
+}
+
+// Рендер начального массива
+initialCards.forEach(item => renderCard(item));
 
 enableValidation({
   formSelector: '.popup__form',

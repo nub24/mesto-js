@@ -1,5 +1,7 @@
 'use strict';
 
+import { openPopup } from './index.js';
+
 const popupView = document.querySelector('.popup_type_view'); //окно просмотра
 const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
 const popupCaption = document.querySelector('.popup__caption'); //описание к картинке
@@ -25,7 +27,7 @@ class Card {
     popupPhoto.src = this._link;
     popupPhoto.alt = this._name;
     popupCaption.textContent = this._name;
-    popupView.classList.add('popup_active');
+    openPopup(popupView);
   }
 
   _setLike () {
