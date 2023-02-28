@@ -1,13 +1,10 @@
 "use strict";
 
 import initialCards from './data.js';
+import Card from './Card.js';
 
-//переменные для рендеринга и просмотра картинки
-const cardTemplate = document.querySelector("#card-template").content.querySelector(".card"); //шаблон
+//переменные для рендеринга
 const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
-const popupView = document.querySelector('.popup_type_view'); //окно просмотра
-const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
-const popupCaption = document.querySelector('.popup__caption'); //описание к картинке
 
 //Переменные для формы редактирования
 const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
@@ -31,45 +28,6 @@ const buttonCloseList = Array.from(document.querySelectorAll('.popup__button-clo
 
 //массив оверлеев для отслеживания
 const popups = Array.from(document.querySelectorAll('.popup'));
-
-// Функция создания карточки
-function createCard({ name, link }) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const buttonLike = cardElement.querySelector('.card__button-like');
-  const buttonDelete = cardElement.querySelector('.card__button-delete');
-  const viewPhoto = cardElement.querySelector('.card__photo');
-  
-  viewPhoto.src = link; // установка атрибута src
-  viewPhoto.alt = name; // установка атрибута alt
-  cardElement.querySelector(".card__title").textContent = name; // 
-
-  // Слушатель на лайк (через всплытие)
-  cardElement.addEventListener('click', (e) => {
-    if (e.target == buttonLike) {
-      toggleLike(buttonLike)
-    }
-  });
-
-  //Слушатели на удаление и просмотр картинок
-  buttonDelete.addEventListener('click', () => cardElement.remove());
-  viewPhoto.addEventListener('click', () => {
-    popupPhoto.src = link;
-    popupPhoto.alt = name;
-    popupCaption.textContent = name;
-    openPopup(popupView);
-  });
-  return cardElement;
-}
-
-// Функция рендеринга карточки из массива
-function renderCard(cardData) {
-  cardsBlock.prepend(createCard(cardData));
-}
-
-// Функция переключения лайк/анлайк
-function toggleLike(buttonLike) {
-  buttonLike.classList.toggle("card__button-like_active");
-};
 
 //закрытие попапа по клавише Escape
 function handleEscClose(e) { 
@@ -140,7 +98,10 @@ function handleFormAddSubmit(evt) {
 
 // Рендер начального массива
 initialCards.forEach(item => {
-  renderCard(item);
+  const card = new Card(item, "#card-template");
+  const cardElement = card.createCard();
+
+  cardsBlock.prepend(cardElement);
 });
 
 enableValidation({
