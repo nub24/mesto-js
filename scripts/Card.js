@@ -42,6 +42,7 @@ class Card {
   //метод удаления карточки
   _deleteCard () {
     this._card.remove();
+    this._card = null;
   }
 
   //навешиваем слушатели

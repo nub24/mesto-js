@@ -74,7 +74,7 @@ function openEditForm() {
   submitButtonEdit.removeAttribute('disabled', '');
 
   //проверка полей ввода при открытии формы
-  let initInput = new Event('input');
+  const initInput = new Event('input');
   inputName.dispatchEvent(initInput);
   inputDescription.dispatchEvent(initInput);
 

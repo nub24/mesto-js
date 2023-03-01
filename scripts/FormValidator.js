@@ -50,7 +50,7 @@ class FormValidator {
     //сброс кнопки при резете формы
     this._form.addEventListener('reset', () => {
       setTimeout(() => {
-        this._toggleButtonState, 0
+        this._toggleButtonState(), 0
       })
     })
 
