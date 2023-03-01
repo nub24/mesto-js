@@ -1,7 +1,9 @@
 'use strict';
 
+//для исключения дублирования кода закрытия по Escape
 import { openPopup } from './index.js';
 
+//константы попапа просмотра картинки
 const popupView = document.querySelector('.popup_type_view'); //окно просмотра
 const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
 const popupCaption = document.querySelector('.popup__caption'); //описание к картинке
@@ -13,6 +15,7 @@ class Card {
     this._cardTemplate = cardTemplate;
   }
 
+  //получаем шаблон карточки
   _getTemplate () {
     const cardElement = document
     .querySelector(this._cardTemplate)
@@ -23,6 +26,7 @@ class Card {
     return cardElement;
   }
 
+  //метод открытия попапа просмотра картинки
   _handleOpenPopup () {
     popupPhoto.src = this._link;
     popupPhoto.alt = this._name;
@@ -30,20 +34,24 @@ class Card {
     openPopup(popupView);
   }
 
+  //метод для лайка
   _setLike () {
     this.classList.toggle("card__button-like_active");    
   }
 
+  //метод удаления карточки
   _deleteCard () {
     this._card.remove();
   }
 
+  //навешиваем слушатели
   _setEventListeners () {
     this._card.querySelector('.card__photo').addEventListener('click', () => this._handleOpenPopup());
     this._card.querySelector('.card__button-delete').addEventListener('click', () => this._deleteCard());
     this._card.querySelector('.card__button-like').addEventListener('click', this._setLike)
   }
 
+  //публичный метод содания карточки
   createCard () {
     this._card = this._getTemplate();
 

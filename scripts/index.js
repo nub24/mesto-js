@@ -4,8 +4,11 @@ import initialCards from './data.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-//переменные для рендеринга
+//секция для рендеринга карточек
 const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
+
+//массив форм для валидации
+const forms = Array.from(document.querySelectorAll('.popup__form'));
 
 //Переменные для формы редактирования
 const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
@@ -108,13 +111,16 @@ function renderCard (item) {
 // Рендер начального массива
 initialCards.forEach(item => renderCard(item));
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save', //кнопка сабмита
-  errorClass: 'popup__input-error_visible', // отображение спана с ошибкой
-  inputErrorClass: 'popup__input_type_error', // красная линия под инпутом
-});
+forms.forEach(form => {
+  const formValidation = new FormValidator({
+      formSelector: '.popup__form',
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__button-save', //кнопка сабмита
+      errorClass: 'popup__input-error_visible', // отображение спана с ошибкой
+      inputErrorClass: 'popup__input_type_error', // красная линия под инпутом
+    }, form);
+    formValidation.enableValidation();
+})
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 popupEditForm.addEventListener('submit', handleFormEditSubmit); // сабмит формы редактирования
