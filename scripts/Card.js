@@ -1,12 +1,10 @@
 'use strict';
 
+//импорт переменных для попапа
+import { popupView, popupPhoto, popupCaption } from './variables.js';
+
 //для исключения дублирования кода закрытия по Escape
 import { openPopup } from './index.js';
-
-//константы попапа просмотра картинки
-const popupView = document.querySelector('.popup_type_view'); //окно просмотра
-const popupPhoto = document.querySelector('.popup__photo'); //картинка для просмотра
-const popupCaption = document.querySelector('.popup__caption'); //описание к картинке
 
 class Card {
   constructor (cardData, cardTemplate) {
