@@ -19,6 +19,8 @@ import {
   popupEdit,
   buttonEdit } from '../utils/constants.js';
 
+import './index.css';
+
 //попап просмотра карточки
 const popupWithImageClass = new PopupWithImage(popupView);
 popupWithImageClass.setEventListeners();
