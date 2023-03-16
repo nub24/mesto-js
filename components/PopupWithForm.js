@@ -1,3 +1,5 @@
+'use strict';
+
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
@@ -42,5 +44,4 @@ export default class PopupWithForm extends Popup {
     this._popupForm.reset();
     super.close();
   }
-
 }

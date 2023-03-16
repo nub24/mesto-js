@@ -46,6 +46,15 @@ function handleFormEditSubmit(evt, inputData) {
   popupEditClass.close()
 }
 
+//создание карточки
+function getCard(item) {
+  return new Card(
+    item,
+    "#card-template",
+    () => {popupWithImageClass.open(item)}
+  ).createCard();
+}
+
 // Функция на сабмит формы добавления места
 function handleFormAddSubmit(evt, inputData) {
   evt.preventDefault();
@@ -54,32 +63,21 @@ function handleFormAddSubmit(evt, inputData) {
   cardData.link = inputData.link;
   const addCardData = new Section({
     data: [cardData],
-    renderer: (item) => {
-      const cardElement = new Card (
-        item, 
-        "#card-template",
-        () => {popupWithImageClass.open(item)})
-        .createCard();
-      addCardData.addItem(cardElement);
-    }}, cardsBlock);
+    renderer: (item) => {addCardData.addItem(getCard(item))}
+    }, cardsBlock);
   popupAddClass.close()
   addCardData.renderItems();
 }
 
 //Отрисовка начального массива
 const initialCardList = new Section({
-  data: initialCards,
-  renderer: (item) => {
-    const cardElement = new Card (
-      item, 
-      "#card-template", 
-      () => {popupWithImageClass.open(item)})
-      .createCard();
-    initialCardList.addItem(cardElement);
-  }},  cardsBlock);
+  data: initialCards.reverse(),
+  renderer: (item) => {initialCardList.addItem(getCard(item))}
+  },  cardsBlock);
 
 initialCardList.renderItems();
 
+//запуск валидации
 forms.forEach(form => {
   const formValidation = new FormValidator(validationSettings, form);
     formValidation.enableValidation();

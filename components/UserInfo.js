@@ -1,3 +1,5 @@
+'use strict';
+
 export default class UserInfo {
   constructor ({ user, userInfo }) {
     this._userName = user;
@@ -15,5 +17,4 @@ export default class UserInfo {
     this._userName.textContent = userData.user;
     this._userInfo.textContent = userData.userInfo;
   }
-
 }

@@ -34,7 +34,6 @@ class Card {
 
   //навешиваем слушатели
   _setEventListeners () {
-    // this._card.querySelector('.card__photo').addEventListener('click', () => this._handleOpenPopup());
     this._card.querySelector('.card__photo').addEventListener('click', this._handlePopupOpen)
     this._card.querySelector('.card__button-delete').addEventListener('click', () => this._deleteCard());
     this._card.querySelector('.card__button-like').addEventListener('click', this._setLike)
@@ -43,12 +42,10 @@ class Card {
   //публичный метод содания карточки
   createCard () {
     this._card = this._getTemplate();
-
     this._card.querySelector('.card__photo').src = this._link;
     this._card.querySelector('.card__photo').alt = this._name;
     this._card.querySelector('.card__title').textContent = this._name;
     this._setEventListeners();
-
     return this._card
   }
 }

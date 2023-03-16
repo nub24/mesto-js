@@ -1,12 +1,12 @@
+'use strict';
+
 class FormValidator {
   constructor (settings, form) {
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
     this._errorClass = settings.errorClass;
     this._inputErrorClass = settings.inputErrorClass;
-
     this._form = form;
-
     this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
   }
@@ -57,7 +57,6 @@ class FormValidator {
     this._inputs.forEach(input => {
       input.addEventListener('input', e => {
         const errorPlace = this._form.querySelector(`.${input.name}-error`)
-
         this._checkInputValidity(input, errorPlace);
         this._toggleButtonState();
       })

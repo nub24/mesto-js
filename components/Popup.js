@@ -1,3 +1,5 @@
+'use strict';
+
 export default class Popup {
   constructor (popup) {
     this._popup = popup;
@@ -18,11 +20,9 @@ export default class Popup {
     e.key === "Escape" &&  this.close();
     }
   
-
   _handleOverlayClose = (e) => {
     e.target.classList.contains('popup') &&  this.close();
     }
-
 
   setEventListeners () {
     this._popup.addEventListener('click', this._handleOverlayClose);

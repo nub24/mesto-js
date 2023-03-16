@@ -1,3 +1,5 @@
+'use strict';
+
 //секция для рендеринга карточек
 export const cardsBlock = document.querySelector(".cards"); // Блок для рендеринга карточек
 
@@ -27,7 +29,6 @@ export const buttonEdit = document.querySelector(".profile__button-edit"); //к�
 export const forms = Array.from(document.querySelectorAll('.popup__form'));
 
 // Начальный массив мест
-// name объекта будет проходить и как название, и как alt картинки
 export const initialCards = [
   {
     name: "Андромеда",
