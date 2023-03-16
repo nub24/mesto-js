@@ -1,16 +1,11 @@
 'use strict';
 
-//импорт переменных для попапа
-import { popupView, popupPhoto, popupCaption } from './variables.js';
-
-//для исключения дублирования кода закрытия по Escape
-import { openPopup } from './index.js';
-
 class Card {
-  constructor (cardData, cardTemplate) {
+  constructor (cardData, cardTemplate, handlePhotoClick) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._cardTemplate = cardTemplate;
+    this._openPopup = handlePhotoClick;
   }
 
   //получаем шаблон карточки
@@ -24,14 +19,6 @@ class Card {
     return cardElement;
   }
 
-  //метод открытия попапа просмотра картинки
-  _handleOpenPopup () {
-    popupPhoto.src = this._link;
-    popupPhoto.alt = this._name;
-    popupCaption.textContent = this._name;
-    openPopup(popupView);
-  }
-
   //метод для лайка
   _setLike () {
     this.classList.toggle("card__button-like_active");    
@@ -43,9 +30,12 @@ class Card {
     this._card = null;
   }
 
+  _handlePopupOpen = () => {this._openPopup({name: this._name, link: this._link})};
+
   //навешиваем слушатели
   _setEventListeners () {
-    this._card.querySelector('.card__photo').addEventListener('click', () => this._handleOpenPopup());
+    // this._card.querySelector('.card__photo').addEventListener('click', () => this._handleOpenPopup());
+    this._card.querySelector('.card__photo').addEventListener('click', this._handlePopupOpen)
     this._card.querySelector('.card__button-delete').addEventListener('click', () => this._deleteCard());
     this._card.querySelector('.card__button-like').addEventListener('click', this._setLike)
   }
