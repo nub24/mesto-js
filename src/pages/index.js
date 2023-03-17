@@ -48,6 +48,14 @@ function handleFormEditSubmit(evt, inputData) {
   popupEditClass.close()
 }
 
+const cardSection = new Section(
+  { renderer: (place) => getCard(place) },
+  cardsBlock
+)
+
+//отрисовка начального массива
+cardSection.renderItems(initialCards.reverse());
+
 //создание карточки
 function getCard(item) {
   return new Card(
@@ -63,22 +71,9 @@ function handleFormAddSubmit(evt, inputData) {
   const cardData = {};
   cardData.name = inputData.name;
   cardData.link = inputData.link;
-  const addCardData = new Section({
-    data: [cardData],
-    renderer: (item) => {addCardData.addItem(getCard(item))}
-    }, cardsBlock);
+  cardSection.addItem(cardData);
   popupAddClass.close()
-  addCardData.renderItems();
 }
-
-//Отрисовка начального массива
-const initialCardList = new Section({
-  data: initialCards.reverse(),
-  renderer: (item) => {initialCardList.addItem(getCard(item))}
-  },  cardsBlock);
-
-initialCardList.renderItems();
-
 //запуск валидации
 forms.forEach(form => {
   const formValidation = new FormValidator(validationSettings, form);

@@ -1,11 +1,11 @@
 'use strict';
 
 class Card {
-  constructor (cardData, cardTemplate, handlePhotoClick) {
+  constructor (cardData, cardTemplate, handleCardClick) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._cardTemplate = cardTemplate;
-    this._openPopup = handlePhotoClick;
+    this._handleCardClick = handleCardClick;
   }
 
   //получаем шаблон карточки
@@ -30,7 +30,7 @@ class Card {
     this._card = null;
   }
 
-  _handlePopupOpen = () => {this._openPopup({name: this._name, link: this._link})};
+  _handlePopupOpen = () => {this._handleCardClick({name: this._name, link: this._link})};
 
   //навешиваем слушатели
   _setEventListeners () {
@@ -42,8 +42,9 @@ class Card {
   //публичный метод содания карточки
   createCard () {
     this._card = this._getTemplate();
-    this._card.querySelector('.card__photo').src = this._link;
-    this._card.querySelector('.card__photo').alt = this._name;
+    this._cardImage = this._card.querySelector('.card__photo');
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._card.querySelector('.card__title').textContent = this._name;
     this._setEventListeners();
     return this._card

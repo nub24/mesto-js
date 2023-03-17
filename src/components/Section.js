@@ -1,19 +1,18 @@
 'use strict';
 
 export default class Section {
-  constructor ({ data, renderer }, containerSelector) {
-    this._renderedItems = data;
+  constructor ({ renderer }, container) {
     this._renderer = renderer;
-    this._container = containerSelector;
+    this._container = container;
   }
 
-  addItem (element) {
-    this._container.prepend(element);
+  addItem (item) {
+    this._container.prepend(this._renderer(item));
   }
 
-  renderItems () {
-    this._renderedItems.forEach( item => {
-      this._renderer(item);
+  renderItems (items) {
+    items.forEach(item => {
+      this.addItem(item);
     })
   }
 }
