@@ -34,7 +34,7 @@ class Card {
 
   //навешиваем слушатели
   _setEventListeners () {
-    this._card.querySelector('.card__photo').addEventListener('click', this._handlePopupOpen)
+    this._cardImage.addEventListener('click', this._handlePopupOpen)
     this._card.querySelector('.card__button-delete').addEventListener('click', () => this._deleteCard());
     this._card.querySelector('.card__button-like').addEventListener('click', this._setLike)
   }
