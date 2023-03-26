@@ -5,9 +5,3 @@
   object-fit: cover;
   border-radius: 50%;
 }
-
-@media screen and (max-width: 650px) {
-  .profile__photo {
-    margin: 0 auto 26px;
-  }
-}

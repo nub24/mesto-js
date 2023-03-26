@@ -17,7 +17,9 @@ import {
   profileTitle,
   profileSubtitle,
   popupEdit,
-  buttonEdit } from '../utils/constants.js';
+  buttonEdit,
+  token,
+  address } from '../utils/constants.js';
 
 import './index.css';
 
@@ -82,3 +84,5 @@ forms.forEach(form => {
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 buttonAdd.addEventListener('click', () => {popupAddClass.open()}); // слушатель на кнопке добавления
+
+console.log(forms);
