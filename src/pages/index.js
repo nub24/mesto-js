@@ -6,6 +6,7 @@ import Card from '../components/Card.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import { 
   initialCards, 
   cardsBlock, 
@@ -18,10 +19,16 @@ import {
   profileSubtitle,
   popupEdit,
   buttonEdit,
+  profileAvatar,
+  popupAvatarEdit,
+  buttonAvatarEdit,
   token,
   address } from '../utils/constants.js';
 
 import './index.css';
+
+const api = new Api({address, token});
+
 
 //попап просмотра карточки
 const popupWithImageClass = new PopupWithImage(popupView);
@@ -35,7 +42,14 @@ popupAddClass.setEventListeners();
 const popupEditClass = new PopupWithForm(popupEdit, handleFormEditSubmit)
 popupEditClass.setEventListeners();
 
-const userinfo = new UserInfo( {user: profileTitle, userInfo: profileSubtitle})
+//попап редактирования аватара
+const popupAvatarClass = new PopupWithForm(popupAvatarEdit, handleFormEditAvatarsubmit)
+popupAvatarClass.setEventListeners();
+
+const userinfo = new UserInfo( {
+  name: profileTitle, 
+  about: profileSubtitle,
+  avatar: profileAvatar})
 
 //функция открытия окна редактирования профиля
 function openEditForm() {
@@ -43,11 +57,29 @@ function openEditForm() {
   popupEditClass.open(userinfo.getUserInfo())
 }
 
+//функция на сабмит формы смены аватара
+function handleFormEditAvatarsubmit(evt, {avatar}) {
+  evt.preventDefault();
+  api
+    .patchAvatar(avatar)
+    .then((data) => {
+      userinfo.setUserInfo(data);
+      popupAvatarClass.close();
+    })
+    .catch((err) => console.log(`Ошибка изменения аватара: ${err}`))
+}
+
 //Функция на сабмит формы редактирования
 function handleFormEditSubmit(evt, inputData) {
   evt.preventDefault();
-  userinfo.setUserInfo(inputData)
-  popupEditClass.close()
+  api
+    .patchProfile(inputData)
+    .then((data) => {
+      userinfo.setUserInfo(data);
+      popupEditClass.close()
+    })
+    .catch((err) => console.log(`Ошибка редактирования профиля: ${err}`))
+  
 }
 
 const cardSection = new Section(
@@ -84,5 +116,6 @@ forms.forEach(form => {
 
 buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
 buttonAdd.addEventListener('click', () => {popupAddClass.open()}); // слушатель на кнопке добавления
+buttonAvatarEdit.addEventListener('click', () => popupAvatarClass.open());
 
-console.log(forms);
+api.getUserInfo().then(userdata => userinfo.setUserInfo(userdata))

@@ -19,6 +19,11 @@ export const validationSettings = {
   inputErrorClass: 'popup__input_type_error', // красная линия под инпутом
 }
 
+//переменные для редактирования аватара
+export const popupAvatarEdit = document.querySelector('.popup_type_avatar');
+export const profileAvatar = document.querySelector('.profile__photo');
+export const buttonAvatarEdit = document.querySelector('.profile__avatar-container');
+
 // Переменные для формы добавления
 export const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
 export const buttonAdd = document.querySelector(".profile__button-add"); //кнопка добавления

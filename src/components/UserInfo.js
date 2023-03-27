@@ -1,20 +1,22 @@
 'use strict';
 
 export default class UserInfo {
-  constructor ({ user, userInfo }) {
-    this._userName = user;
-    this._userInfo = userInfo;
+  constructor ({ name, about, avatar }) {
+    this._userName = name;
+    this._userInfo = about;
+    this._avatar = avatar;
   }
 
   getUserInfo () {
     return {
-      user: this._userName.textContent,
-      userInfo: this._userInfo.textContent
+      name: this._userName.textContent,
+      about: this._userInfo.textContent
     }
   }
 
-  setUserInfo ( userData ) {
-    this._userName.textContent = userData.user;
-    this._userInfo.textContent = userData.userInfo;
+  setUserInfo ( {name, about, avatar} ) {
+    this._userName.textContent = name;
+    this._userInfo.textContent = about;
+    this._avatar.src = avatar;
   }
 }
