@@ -61,6 +61,7 @@ const userinfo = new UserInfo( {
 //функция на сабмит формы смены аватара
 function handleFormEditAvatarsubmit(evt, {avatar}) {
   evt.preventDefault();
+  popupAvatarClass.loadingButton(true);
   api
     .patchAvatar(avatar)
     .then((data) => {
@@ -68,6 +69,9 @@ function handleFormEditAvatarsubmit(evt, {avatar}) {
       popupAvatarClass.close();
     })
     .catch((err) => console.log(`Ошибка изменения аватара: ${err}`))
+    .finally(() => {
+      popupAvatarClass.loadingButton(false);
+    })
 }
 
 //Функция на сабмит формы редактирования
@@ -91,9 +95,6 @@ const cardSection = new Section(
   cardsBlock
 )
 
-//отрисовка начального массива
-// cardSection.renderItems(initialCards.reverse());
-
 //создание карточки
 function getCard(item) {
   return new Card(
@@ -104,14 +105,28 @@ function getCard(item) {
 }
 
 // Функция на сабмит формы добавления места
+// function handleFormAddSubmit(evt, inputData) {
+//   evt.preventDefault();
+//   const cardData = {};
+//   cardData.name = inputData.name;
+//   cardData.link = inputData.link;
+//   cardSection.addItem(cardData);
+//   popupAddClass.close()
+// }
+
 function handleFormAddSubmit(evt, inputData) {
   evt.preventDefault();
-  const cardData = {};
-  cardData.name = inputData.name;
-  cardData.link = inputData.link;
-  cardSection.addItem(cardData);
-  popupAddClass.close()
+  api
+    .postCard(inputData)
+    .then((data) => {
+      cardSection.addItem(data);
+      popupAddClass.close()
+    })
+    .catch((err) => console.log(`Ошибка при добавлении карточки: ${err}`))
+  
+  
 }
+
 //запуск валидации
 forms.forEach(form => {
   const formValidation = new FormValidator(validationSettings, form);

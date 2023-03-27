@@ -28,6 +28,19 @@ export default class Api {
     .then(this._handleResponse);
   }
 
+  //передача карточки на сервер
+  postCard ({ name, link }) {
+    return fetch(`${this._address}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify ({
+        name,
+        link
+      })
+    })
+    .then(this._handleResponse);
+  }
+
   //передача информации о пользователе на сервер
   patchProfile ( {name, about} ) {
     return fetch(`${this._address}/users/me`, {
