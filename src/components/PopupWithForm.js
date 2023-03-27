@@ -28,6 +28,11 @@ export default class PopupWithForm extends Popup {
     this._popupForm.addEventListener('submit', this._onSubmitHandler);
   }
 
+  loadingButton(isLoading, text = 'Сохранение данных...') {
+    this._submitButton.disabled = isLoading;
+    this._submitButton.textContent = text;
+  }
+
   open(inputValues) {
     super.open();
     if(inputValues) {

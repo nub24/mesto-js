@@ -8,7 +8,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import { 
-  initialCards, 
+  // initialCards, 
   cardsBlock, 
   validationSettings, 
   forms, 
@@ -29,6 +29,13 @@ import './index.css';
 
 const api = new Api({address, token});
 
+//загрузка начальных данных
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userData, cards]) => {
+    userinfo.setUserInfo(userData);
+    cardSection.renderItems(cards.reverse());
+  })
+  .catch((err) => console.log(`Ошибка получения данных: ${err}`));
 
 //попап просмотра карточки
 const popupWithImageClass = new PopupWithImage(popupView);
@@ -51,12 +58,6 @@ const userinfo = new UserInfo( {
   about: profileSubtitle,
   avatar: profileAvatar})
 
-//функция открытия окна редактирования профиля
-function openEditForm() {
-  //Значения инпутов и кнопки при инициализации popup-окна.
-  popupEditClass.open(userinfo.getUserInfo())
-}
-
 //функция на сабмит формы смены аватара
 function handleFormEditAvatarsubmit(evt, {avatar}) {
   evt.preventDefault();
@@ -72,6 +73,7 @@ function handleFormEditAvatarsubmit(evt, {avatar}) {
 //Функция на сабмит формы редактирования
 function handleFormEditSubmit(evt, inputData) {
   evt.preventDefault();
+  popupEditClass.loadingButton(true);
   api
     .patchProfile(inputData)
     .then((data) => {
@@ -79,16 +81,18 @@ function handleFormEditSubmit(evt, inputData) {
       popupEditClass.close()
     })
     .catch((err) => console.log(`Ошибка редактирования профиля: ${err}`))
-  
+    .finally(() => {
+      popupEditClass.loadingButton(false, 'Сохранить');
+    })
 }
 
 const cardSection = new Section(
-  { renderer: (place) => getCard(place) },
+  { renderer: (item) => getCard(item) },
   cardsBlock
 )
 
 //отрисовка начального массива
-cardSection.renderItems(initialCards.reverse());
+// cardSection.renderItems(initialCards.reverse());
 
 //создание карточки
 function getCard(item) {
@@ -114,8 +118,6 @@ forms.forEach(form => {
     formValidation.enableValidation();
 })
 
-buttonEdit.addEventListener('click', openEditForm); // Слушатель на кнопке редактирования
+buttonEdit.addEventListener('click', () => {popupEditClass.open(userinfo.getUserInfo())}); // Слушатель на кнопке редактирования
 buttonAdd.addEventListener('click', () => {popupAddClass.open()}); // слушатель на кнопке добавления
-buttonAvatarEdit.addEventListener('click', () => popupAvatarClass.open());
-
-api.getUserInfo().then(userdata => userinfo.setUserInfo(userdata))
+buttonAvatarEdit.addEventListener('click', () => popupAvatarClass.open()); //слушатель на аватарке

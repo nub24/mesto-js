@@ -8,16 +8,27 @@ export default class Api {
     }
   }
 
+  //запрос на сервер
   _handleResponse = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`)
   };
 
+  //получение информации о пользователе с сервера
   getUserInfo () {
     return fetch(`${this._address}/users/me`, {
       headers: this._headers
     }).then(this._handleResponse);
   }
 
+  //получение карточек
+  getCards () {
+    return fetch(`${this._address}/cards`, {
+      headers: this._headers
+    })
+    .then(this._handleResponse);
+  }
+
+  //передача информации о пользователе на сервер
   patchProfile ( {name, about} ) {
     return fetch(`${this._address}/users/me`, {
       method: 'PATCH',
@@ -26,6 +37,7 @@ export default class Api {
     }).then(this._handleResponse)
   }
 
+  //передача аватарки на сервер
   patchAvatar(avatar) {
     return fetch(`${this._address}/users/me/avatar`, {
       method: "PATCH",

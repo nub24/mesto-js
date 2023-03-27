@@ -1,9 +1,10 @@
 'use strict';
 
 class Card {
-  constructor (cardData, cardTemplate, handleCardClick) {
-    this._name = cardData.name;
-    this._link = cardData.link;
+  constructor ({name, link, likes}, cardTemplate, handleCardClick) {
+    this._name = name;
+    this._link = link;
+    this._likesLength = likes.length;
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
   }
@@ -15,8 +16,7 @@ class Card {
     .content
     .querySelector('.card')
     .cloneNode(true);
-    
-    return cardElement;
+      return cardElement;
   }
 
   //метод для лайка
@@ -30,6 +30,7 @@ class Card {
     this._card = null;
   }
 
+  //открытие окна просмотра
   _handlePopupOpen = () => {this._handleCardClick({name: this._name, link: this._link})};
 
   //навешиваем слушатели
@@ -46,6 +47,8 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._card.querySelector('.card__title').textContent = this._name;
+    this._likeCount = this._card.querySelector('.card__like-count')
+    this._likeCount.textContent = this._likesLength;
     this._setEventListeners();
     return this._card
   }
