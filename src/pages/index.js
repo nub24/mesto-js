@@ -5,10 +5,10 @@ import Section from '../components/Section.js';
 import Card from '../components/Card.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import { 
-  // initialCards, 
   cardsBlock, 
   validationSettings, 
   forms, 
@@ -23,7 +23,8 @@ import {
   popupAvatarEdit,
   buttonAvatarEdit,
   token,
-  address } from '../utils/constants.js';
+  address,
+  popupDeleteCard} from '../utils/constants.js';
 
 import './index.css';
 
@@ -52,6 +53,10 @@ popupEditClass.setEventListeners();
 //попап редактирования аватара
 const popupAvatarClass = new PopupWithForm(popupAvatarEdit, handleFormEditAvatarsubmit)
 popupAvatarClass.setEventListeners();
+
+//попап удаления карточки
+const popupDelClass = new PopupWithConfirmation(popupDeleteCard, delCard);
+popupDelClass.setEventListeners();
 
 const userinfo = new UserInfo( {
   name: profileTitle, 
@@ -100,19 +105,32 @@ function getCard(item) {
   return new Card(
     item,
     "#card-template",
-    () => {popupWithImageClass.open(item)}
+    () => {popupWithImageClass.open(item)},
+    userinfo.getUserInfo().userId,
+    handleLike,
+    (cardId, card) => popupDelClass.open(cardId, card)
   ).createCard();
 }
 
-// Функция на сабмит формы добавления места
-// function handleFormAddSubmit(evt, inputData) {
-//   evt.preventDefault();
-//   const cardData = {};
-//   cardData.name = inputData.name;
-//   cardData.link = inputData.link;
-//   cardSection.addItem(cardData);
-//   popupAddClass.close()
-// }
+//работа с лайком в карточке
+function handleLike (card) {
+  api
+  .toggleLike(card.getCardInfo())
+  .then(res => card.updateLike(res))
+  .catch(err => console.log(`Ошибка обновления лайка: ${err}`))
+}
+
+//удаление карточки 
+function delCard (e, { cardId, card }) {
+  e.preventDefault();
+  api
+    .delCard(cardId)
+    .then(() => {
+      card.remove();
+      popupDelClass.close();
+    })
+    .catch((err) => console.log(`Ошибка удаления карточки: ${err}`));
+}
 
 function handleFormAddSubmit(evt, inputData) {
   evt.preventDefault();

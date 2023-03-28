@@ -41,6 +41,37 @@ export default class Api {
     .then(this._handleResponse);
   }
 
+  //простановка лайка
+  _putLike (id) {
+    return fetch(`${this._address}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then(this._handleResponse);
+  }
+
+  //удоление лайка
+  _delLike (id) {
+    return fetch(`${this._address}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(this._handleResponse);
+  }
+
+  //установка/снятие лайка
+  toggleLike({ cardId, isLiked }) {
+    return isLiked ? this._delLike(cardId) : this._putLike(cardId);
+  }
+
+  //удоление карточки
+  delCard(id) {
+    return fetch(`${this._address}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._handleResponse);
+  }
+
   //передача информации о пользователе на сервер
   patchProfile ( {name, about} ) {
     return fetch(`${this._address}/users/me`, {
