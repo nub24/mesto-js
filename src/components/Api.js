@@ -10,7 +10,11 @@ export default class Api {
 
   //обработка запроса
   _handleResponse = (res) => {
-    return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`)
+    if (res.ok) {
+      return res.json();
+    } else {
+      Promise.reject(`Ошибка ${res.status}`)
+    }
   };
 
   //получение информации о пользователе с сервера
