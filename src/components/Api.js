@@ -8,7 +8,7 @@ export default class Api {
     }
   }
 
-  //запрос на сервер
+  //обработка запроса
   _handleResponse = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`)
   };

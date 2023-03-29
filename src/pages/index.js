@@ -28,6 +28,7 @@ import {
 
 import './index.css';
 
+//инициализация API
 const api = new Api({address, token});
 
 //загрузка начальных данных
@@ -58,6 +59,7 @@ popupAvatarClass.setEventListeners();
 const popupDelClass = new PopupWithConfirmation(popupDeleteCard, delCard);
 popupDelClass.setEventListeners();
 
+//класс работы с информацией о пользователе
 const userinfo = new UserInfo( {
   name: profileTitle, 
   about: profileSubtitle,
@@ -132,6 +134,8 @@ function delCard (e, { cardId, card }) {
     .catch((err) => console.log(`Ошибка удаления карточки: ${err}`));
 }
 
+
+//сабмит добавления карточки
 function handleFormAddSubmit(evt, inputData) {
   evt.preventDefault();
   api
@@ -140,9 +144,7 @@ function handleFormAddSubmit(evt, inputData) {
       cardSection.addItem(data);
       popupAddClass.close()
     })
-    .catch((err) => console.log(`Ошибка при добавлении карточки: ${err}`))
-  
-  
+    .catch((err) => console.log(`Ошибка при добавлении карточки: ${err}`))  
 }
 
 //запуск валидации
