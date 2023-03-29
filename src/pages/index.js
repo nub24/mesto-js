@@ -31,9 +31,13 @@ import './index.css';
 //инициализация API
 const api = new Api({address, token});
 
-//загрузка данных пользователя и карточек
-api.getUserInfo().then(userData => userinfo.setUserInfo(userData)).catch((err) => console.log(`Ошибка получения данных пользователя: ${err}`))
-api.getCards().then(cards => cardSection.renderItems(cards.reverse())).catch((err) => console.log(`Ошибка получения данных карточек: ${err}`))
+//загрузка начальных данных
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userData, cards]) => {
+    userinfo.setUserInfo(userData);
+    cardSection.renderItems(cards.reverse());
+  })
+  .catch((err) => console.log(`Ошибка получения данных: ${err}`));
 
 //попап просмотра карточки
 const popupWithImageClass = new PopupWithImage(popupView);
@@ -72,7 +76,9 @@ function handleFormEditAvatarsubmit(evt, {avatar}) {
       popupAvatarClass.close();
     })
     .catch((err) => console.log(`Ошибка изменения аватара: ${err}`))
-    .finally(() => popupAvatarClass.loadingButton(false) )
+    .finally(() => {
+      popupAvatarClass.loadingButton(false);
+    })
 }
 
 //Функция на сабмит формы редактирования
@@ -86,7 +92,9 @@ function handleFormEditSubmit(evt, inputData) {
       popupEditClass.close()
     })
     .catch((err) => console.log(`Ошибка редактирования профиля: ${err}`))
-    .finally(() => popupEditClass.loadingButton(false, 'Сохранить'))
+    .finally(() => {
+      popupEditClass.loadingButton(false, 'Сохранить');
+    })
 }
 
 const cardSection = new Section(
@@ -145,6 +153,6 @@ forms.forEach(form => {
     formValidation.enableValidation();
 })
 
-buttonEdit.addEventListener('click', () => popupEditClass.open(userinfo.getUserInfo())); // Слушатель на кнопке редактирования
-buttonAdd.addEventListener('click', () => popupAddClass.open()); // слушатель на кнопке добавления
+buttonEdit.addEventListener('click', () => {popupEditClass.open(userinfo.getUserInfo())}); // Слушатель на кнопке редактирования
+buttonAdd.addEventListener('click', () => {popupAddClass.open()}); // слушатель на кнопке добавления
 buttonAvatarEdit.addEventListener('click', () => popupAvatarClass.open()); //слушатель на аватарке
