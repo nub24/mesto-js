@@ -43,7 +43,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
 const popupWithImageClass = new PopupWithImage(popupView);
 popupWithImageClass.setEventListeners();
 
-//попап добавления карточки
+//попап для добавления карточки
 const popupAddClass = new PopupWithForm(popupAdd, handleFormAddSubmit);
 popupAddClass.setEventListeners();
 

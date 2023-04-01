@@ -10,7 +10,7 @@ class Card {
     this._isLiked = likes.some(like => like._id === userId);
     this._handleLike = handleLike;
     this._cardTemplate = cardTemplate;
-    this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick;   
     this._openDelPopup = openDelPopup;
   }
 
