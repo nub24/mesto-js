@@ -31,6 +31,8 @@ import './index.css';
 //инициализация API
 const api = new Api({address, token});
 
+console.log(api.getCards());
+
 //загрузка начальных данных
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userData, cards]) => {
@@ -77,7 +79,7 @@ function handleFormEditAvatarsubmit(evt, {avatar}) {
     })
     .catch((err) => console.log(`Ошибка изменения аватара: ${err}`))
     .finally(() => {
-      popupAvatarClass.loadingButton(false);
+      popupAvatarClass.loadingButton(false, 'Сохранить');
     })
 }
 
@@ -128,7 +130,7 @@ function delCard (e, { cardId, card }) {
   api
     .delCard(cardId)
     .then(() => {
-      card.remove();
+      card.deleteCard()
       popupDelClass.close();
     })
     .catch((err) => console.log(`Ошибка удаления карточки: ${err}`));

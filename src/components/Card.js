@@ -26,9 +26,13 @@ class Card {
 
   //метод удаления карточки
   _handleDelCard = () => {
-    this._openDelPopup(this._cardId, this._card);
+    this._openDelPopup(this._cardId, this);
   };
   
+  deleteCard () {
+    this._card.remove();
+  }
+
   //открытие окна просмотра
   _handlePopupOpen = () => {this._handleCardClick({name: this._name, link: this._link})};
 
